@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { connect } from '@/dbConfig/dbConfig';
 
 import { NextRequest, NextResponse } from 'next/server';
@@ -35,7 +36,7 @@ export async function POST(request: NextRequest) {
         }
 
      }
-     catch(err:any) {
+     catch(err: any) {
         console.log("something went wrong");
         NextResponse.json({ msg: "something went wrong !" });
      }

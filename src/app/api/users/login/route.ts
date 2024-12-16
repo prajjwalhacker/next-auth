@@ -31,7 +31,10 @@ export async function POST(request: NextRequest) {
                     user: userObj
                 });
 
-                const token = jwt.sign({ id: userObj._id }, process.env.TOKEN_SECRET!, { algorithm: 'HS256' });
+                const token = jwt.sign({ id: userObj._id }, process.env.TOKEN_SECRET!, { algorithm: 'HS256', expiresIn: "1d" });
+                userObj.accessToken = token;
+                await userObj.save();
+
                 response.cookies.set('token', token, {
                     httpOnly: true
                 });

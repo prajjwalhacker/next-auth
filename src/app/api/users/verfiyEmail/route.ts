@@ -22,6 +22,8 @@ export async function POST(request: NextRequest) {
             }
             else {
                 userObj.isVerified = true;
+                userObj.verifyToken = null;
+                userObj.verifyTokenExpiry = null;
                 await userObj.save();
                 return NextResponse.json({ message: "email verified successfully!" });
             }

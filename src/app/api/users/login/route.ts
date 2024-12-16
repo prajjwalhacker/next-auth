@@ -13,6 +13,10 @@ export async function POST(request: NextRequest) {
         const { email,  password } = await request.json();
 
 
+        console.log("email");
+        console.log(email);
+
+
         const userObj = await User.findOne({ email });
 
         if (!userObj) {
@@ -20,11 +24,14 @@ export async function POST(request: NextRequest) {
         }
         else {
             const isEqual = await bcryptjs.compare(password, userObj?.password);
+            console.log("isEqual");
+            console.log(isEqual);
             if (isEqual) {
                 const response = NextResponse.json({
                     user: userObj
                 });
-                const token = jwt.sign({ id: userObj?._id }, process.env.TOKEN_SECRET!, { algorithm: 'RS256' });
+
+                const token = jwt.sign({ id: userObj._id }, process.env.TOKEN_SECRET!, { algorithm: 'HS256' });
                 response.cookies.set('token', token, {
                     httpOnly: true
                 });

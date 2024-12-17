@@ -4,7 +4,7 @@ import getUserData from '@/helpers/getUserData';
 import User from '@/models/userModel';
 import { NextRequest, NextResponse } from 'next/server';
  
- connect();
+connect();
  
  export async function POST(request: NextRequest) {
      try {

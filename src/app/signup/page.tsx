@@ -2,6 +2,9 @@
 import React, { useEffect } from 'react'
 import Navbar from '../_components/Navbar'
 import { useState } from 'react'
+import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -20,6 +23,26 @@ const Signup = () => {
     const [formData, setFormData] = useState<any>({});
     const [error, setError] = useState<any>({});
     const [loading, setLoading] = useState(false);
+
+    const notify = (msg) => {
+        toast.error(msg, {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          draggable: true,
+          pauseOnHover: true,
+          style: {
+            background: 'linear-gradient(to right, #8e2de2, #4a00e0)', // neon purple gradient
+            color: 'white',
+            borderRadius: '8px',
+            fontSize: '16px',
+            boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.5)', // glowing effect
+            padding: '12px 20px',
+            fontFamily: "'Roboto', sans-serif",
+          }
+        });
+      };
 
     const buttons = [
         {
@@ -61,7 +84,7 @@ const Signup = () => {
     return errorObj;
  }
 
- const onSubmit = (e:any) => {
+ const onSubmit =async (e:any) => {
     e.preventDefault();
     const errorObj = validateForm();
 
@@ -72,10 +95,23 @@ const Signup = () => {
        setError(errorObj);
        return;
     }
+    try { 
 
-    const { email, username, password } = formData || {};
-
-
+        setLoading(true);
+        const { email, username, password } = formData || {};
+    
+        const res = await axios.post('/api/users/signup', formData); // Relative URL for Next.js
+    
+        if (res?.data?.msg) {
+            notify(res?.data?.msg);
+        }
+    }
+    catch(err) {
+        console.log(err);
+    }
+    finally {
+        setLoading(false);
+    }
 
 }
 
@@ -87,6 +123,7 @@ const Signup = () => {
 
   return (
     <div className="bg-primary-black min-h-screen overflow-hidden py-8">
+        <ToastContainer/>
         <Navbar buttons={buttons}/>   
         <div className="flex justify-center w-full" >
   <div className="w-11/12 sm:w-2/3 md:w-1/2 lg:w-1/3 p-8 bg-gradient-to-br from-purple-800 via-gray-900 to-black rounded-xl shadow-lg shadow-purple-500/50 border border-gray-700 hover:shadow-purple-600/50 transition-all duration-300 flex flex-col gap-6">

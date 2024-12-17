@@ -19,6 +19,7 @@ const Signup = () => {
 
     const [formData, setFormData] = useState<any>({});
     const [error, setError] = useState<any>({});
+    const [loading, setLoading] = useState(false);
 
     const buttons = [
         {
@@ -72,6 +73,10 @@ const Signup = () => {
        return;
     }
 
+    const { email, username, password } = formData || {};
+
+
+
 }
 
 
@@ -81,9 +86,9 @@ const Signup = () => {
   }, [JSON.stringify(formData)]);
 
   return (
-    <div className="bg-primary-black h-screen overflow-hidden">
+    <div className="bg-primary-black min-h-screen overflow-hidden py-8">
         <Navbar buttons={buttons}/>   
-        <div className="flex justify-center pt-10 w-full" >
+        <div className="flex justify-center w-full" >
   <div className="w-11/12 sm:w-2/3 md:w-1/2 lg:w-1/3 p-8 bg-gradient-to-br from-purple-800 via-gray-900 to-black rounded-xl shadow-lg shadow-purple-500/50 border border-gray-700 hover:shadow-purple-600/50 transition-all duration-300 flex flex-col gap-6">
     <h2 className="text-2xl font-bold text-white text-center mb-6">
     Enter the Realm
@@ -125,11 +130,16 @@ const Signup = () => {
     <span className="text-blue-500 font-semibold"> numeric</span>, and 
     <span className="text-yellow-500 font-semibold"> special character</span>.
   </p>
-     <button key={'register'} className="px-6 py-3 bg-white text-primary-black font-semibold rounded-full shadow-md hover:bg-gray-100 hover:shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-1" onClick={(e) => { 
+     <button key={'register'} className="flex justify-center px-6 py-3 bg-white text-primary-black font-semibold rounded-full shadow-md hover:bg-gray-100 hover:shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-1" onClick={(e) => { 
         onSubmit(e);
      }}>
-         Register
+       {loading ? <div className="relative w-16 h-16">
+    <div className="absolute inset-0 rounded-full border-4 border-t-transparent border-purple-500 animate-spin"></div>
+    <div className="absolute inset-2 rounded-full border-4 border-purple-500 opacity-30"></div>
+    <div className="absolute inset-4 rounded-full bg-gradient-to-br from-purple-800 via-gray-900 to-black"></div>
+  </div> : 'Register'}
      </button>
+
   </div>
 </div>
     </div>

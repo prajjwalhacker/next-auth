@@ -10,7 +10,15 @@ const Navbar = () => (
    className={`${styles.xPaddings} py-8 relative`}
    animate='show'
   >
-     <div className=""/>
+     <div className="absolute w-[50%] inset-0 gradient-01"/>
+     <div className="flex justify-between">
+     <div className="font-extrabold text-[24px] leading-[30px] text-white">
+        Mock interview with AI
+     </div>
+     <div>
+        Dfsdfsdf
+     </div>
+     </div>
   </motion.nav>
 );
 

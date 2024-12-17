@@ -1,11 +1,15 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client"
 import React from 'react'
 import Navbar from '../_components/Navbar';
 import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 
 const Login = () => {
 
   const router = useRouter();
+  const [formData, setFormData] = useState<any>({});
+
   const buttons = [
     {
         name: "login",
@@ -30,18 +34,23 @@ const Login = () => {
       type="text" 
       placeholder="Email" 
       className="w-full px-4 py-3 bg-primary-black text-white placeholder-gray-400 font-medium rounded-lg border-2 border-gray-600 focus:outline-none focus:ring-4 focus:ring-purple-500 focus:border-purple-500 transition duration-300"
+      value={formData.email || ""}
+      onChange={(e) => {
+        setFormData((val: any) => ({ ...val, email: e.target.value }))
+      }}
     />
     <input 
-      type="text" 
-      placeholder="Username" 
-      className="w-full px-4 py-3 bg-primary-black text-white placeholder-gray-400 font-medium rounded-lg border-2 border-gray-600 focus:outline-none focus:ring-4 focus:ring-purple-500 focus:border-purple-500 transition duration-300"
-    />
-    <input 
-      type="text" 
+      type="password" 
       placeholder="Password" 
       className="w-full px-4 py-3 bg-primary-black text-white placeholder-gray-400 font-medium rounded-lg border-2 border-gray-600 focus:outline-none focus:ring-4 focus:ring-purple-500 focus:border-purple-500 transition duration-300"
+      value={formData.password || ''}
+      onChange={(e: any) => {
+         setFormData((val: any) => ({ ...val, password: e.target.value }))
+      }}
     />
-     <button key={'register'} className="px-6 py-3 bg-white text-primary-black font-semibold rounded-full shadow-md hover:bg-gray-100 hover:shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-1" onClick={() => { }}>
+     <button key={'register'} className="px-6 py-3 bg-white text-primary-black font-semibold rounded-full shadow-md hover:bg-gray-100 hover:shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-1" onClick={() => { 
+
+     }}>
          Login
      </button>
   </div>

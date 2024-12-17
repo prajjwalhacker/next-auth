@@ -2,9 +2,13 @@
 import { navVariants } from "@/utils/motion";
 import styles from "@/utils/stylesMap";
 import { motion } from "framer-motion";
+import { useRouter } from "next/navigation";
 
-const Navbar = () => (
-  <motion.nav 
+const Navbar = ({ buttons  }: { buttons: { name: string, title: string, href: string }[] }) => {
+  
+  const router = useRouter();
+
+  return (<motion.nav 
    variants={navVariants}
    initial='hidden'
    className={`${styles.xPaddings} py-8 relative`}
@@ -16,15 +20,16 @@ const Navbar = () => (
         Mock interview with AI
      </div>
      <div className="flex gap-4">
-       <button className="px-6 py-3 bg-white text-primary-black font-semibold rounded-full shadow-md hover:bg-gray-100 hover:shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-1">
-        Sign Up
-       </button>
-      <button className="px-6 py-3 bg-white text-primary-black font-semibold rounded-full shadow-md hover:bg-gray-100 hover:shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-1">
-        Login
-       </button>
+       {buttons.map((item, id) => {
+           return (
+            <button key={id} className="px-6 py-3 bg-white text-primary-black font-semibold rounded-full shadow-md hover:bg-gray-100 hover:shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-1" onClick={() => { router.push(item.href) }}>
+             {item.title || ''}
+           </button>
+           )
+       })}
      </div>
      </div>
-  </motion.nav>
-);
+  </motion.nav>)
+}
 
 export default Navbar;

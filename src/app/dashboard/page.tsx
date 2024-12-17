@@ -1,18 +1,13 @@
 import React from 'react'
 import Navbar from '../_components/Navbar';
 
-const Login = () => {
+const Dashboard = () => {
   const buttons = [
     {
-        name: "login",
-        title: "Login",
+        name: "logout",
+        title: "Logout",
         href:'/login'
     },
-    {
-        name: "signup",
-        title: "Signup",
-        href: "/signup"
-    }
   ]
   return (
     <div className="bg-primary-black h-screen overflow-hidden">
@@ -21,4 +16,4 @@ const Login = () => {
   )
 }
 
-export default Login;
+export default Dashboard;

@@ -5,7 +5,7 @@ import styles from "@/utils/stylesMap";
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
 
-const Navbar = ({ buttons  }: { buttons: { name: string, title: string, href: string, onClick: ()=>void }[] }) => {
+const Navbar = ({ buttons  }: { buttons: { name: string, title: string, href: string, onClick?: ()=>void }[] }) => {
   
   const router = useRouter();
 

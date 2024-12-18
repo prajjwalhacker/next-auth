@@ -2,15 +2,11 @@ import React, { useState } from 'react';
 
 const frameworks = ["Node.js", "React.js", "Angular", "Vue.js", "Next.js", "Svelte", "Express.js", "NestJS"];
 
-const AddMockInterviewModal = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+const AddMockInterviewModal = ({ isModalOpen, setIsModalOpen, toggleModal }) => {
+
   const [jobTitle, setJobTitle] = useState('');
   const [framework, setFramework] = useState('');
   const [yearsOfExperience, setYearsOfExperience] = useState('');
-
-  const toggleModal = () => {
-    setIsModalOpen(!isModalOpen);
-  };
 
   const handleCreateInterview = () => {
     console.log({
@@ -22,16 +18,10 @@ const AddMockInterviewModal = () => {
     toggleModal();
   };
 
+  if (!isModalOpen) return null;
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-black via-purple-900 to-gray-800 flex justify-center items-center">
-      {/* + Button to Open Modal */}
-      <button
-        onClick={toggleModal}
-        className="text-4xl text-white bg-gradient-to-r from-purple-500 to-pink-500 hover:opacity-80 transition-all p-4 rounded-full shadow-lg"
-      >
-        +
-      </button>
-
       {/* Modal */}
       {isModalOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50">

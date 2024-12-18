@@ -5,6 +5,7 @@ import { useState } from 'react'
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useRouter } from 'next/navigation';
 
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -23,8 +24,29 @@ const Signup = () => {
     const [formData, setFormData] = useState<any>({});
     const [error, setError] = useState<any>({});
     const [loading, setLoading] = useState(false);
+    const router = useRouter();
 
-    const notify = (msg) => {
+    const notify = (msg, type) => {
+        if (type === 'success') {
+            toast.success(msg, {
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                draggable: true,
+                pauseOnHover: true,
+                style: {
+                  background: 'linear-gradient(to right, #8e2de2, #4a00e0)', // neon purple gradient
+                  color: 'white',
+                  borderRadius: '8px',
+                  fontSize: '16px',
+                  boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.5)', // glowing effect
+                  padding: '12px 20px',
+                  fontFamily: "'Roboto', sans-serif",
+                }
+              });
+              return;
+        }
         toast.error(msg, {
           position: "top-center",
           autoClose: 5000,
@@ -101,9 +123,19 @@ const Signup = () => {
         const { email, username, password } = formData || {};
     
         const res = await axios.post('/api/users/signup', formData); // Relative URL for Next.js
+
+        console.log("res");
+        console.log(res);
     
-        if (res?.data?.msg) {
-            notify(res?.data?.msg);
+        if (res?.data?.error) {
+            notify(res?.data?.error, 'error');
+        }
+        else if (res?.data?.message) {
+           notify(res?.data?.message, 'success');
+           setTimeout(() => {
+            router.push('/login');
+           }, 3000);
+
         }
     }
     catch(err) {

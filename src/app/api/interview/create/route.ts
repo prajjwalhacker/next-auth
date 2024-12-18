@@ -8,6 +8,9 @@ connect();
 
 export async function GET(request: NextRequest) {
 
+ 
+    const { expereince, jobDescriptions, topic } = await request.json(); 
+
     const configuration = new OpenAI(
         {
           apiKey: process.env.OPEN_API_KEY

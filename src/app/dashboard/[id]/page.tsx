@@ -112,7 +112,7 @@ const Dashboard = () => {
             key={index}
             className="cursor-pointer w-72 p-4 bg-gradient-to-br from-purple-800 via-black to-gray-900 rounded-lg shadow-lg border border-purple-500 hover:scale-105 transform transition-all"
             onClick={()=>{
-              router.push(`/dashboard/67626ee77cd248cbdd77b0f4/interview/123`);
+              router.push(`/dashboard/${id}/interview/${interview._id}`);
             }}
           >
             <h2 className="text-xl font-semibold text-white mb-2">

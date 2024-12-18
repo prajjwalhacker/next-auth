@@ -13,19 +13,19 @@ export async function POST(request: NextRequest) {
         const { email,  password } = await request.json();
 
 
-        console.log("email");
-        console.log(email);
+
 
 
         const userObj = await User.findOne({ email });
 
         if (!userObj) {
-            return NextResponse.json({ message: "user doesnt exists" });
+            return NextResponse.json({ error: "Email doesnt exists" });
         }
         else {
+            if (!userObj?.isVerified) {
+              return NextResponse.json({ error: "User not verifed" });
+            }
             const isEqual = await bcryptjs.compare(password, userObj?.password);
-            console.log("isEqual");
-            console.log(isEqual);
             if (isEqual) {
                 const response = NextResponse.json({
                     user: userObj

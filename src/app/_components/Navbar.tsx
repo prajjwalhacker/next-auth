@@ -1,10 +1,11 @@
+/* eslint-disable @typescript-eslint/no-empty-object-type */
 'use client';
 import { navVariants } from "@/utils/motion";
 import styles from "@/utils/stylesMap";
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
 
-const Navbar = ({ buttons  }: { buttons: { name: string, title: string, href: string }[] }) => {
+const Navbar = ({ buttons  }: { buttons: { name: string, title: string, href: string, onClick: ()=>void }[] }) => {
   
   const router = useRouter();
 
@@ -22,7 +23,10 @@ const Navbar = ({ buttons  }: { buttons: { name: string, title: string, href: st
      <div className="flex gap-4">
        {buttons.map((item, id) => {
            return (
-            <button key={id} className="px-6 py-3 bg-white text-primary-black font-semibold rounded-full shadow-md hover:bg-gray-100 hover:shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-1" onClick={() => { router.push(item.href) }}>
+            <button key={id} className="px-6 py-3 bg-white text-primary-black font-semibold rounded-full shadow-md hover:bg-gray-100 hover:shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-1" onClick={() => { if(item.onClick) {
+               item.onClick();
+            } 
+            router.push(item.href) }}>
              {item.title || ''}
            </button>
            )

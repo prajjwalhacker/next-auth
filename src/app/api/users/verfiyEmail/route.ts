@@ -25,7 +25,7 @@ export async function POST(request: NextRequest) {
                 userObj.verifyToken = null;
                 userObj.verifyTokenExpiry = null;
                 await userObj.save();
-                return NextResponse.json({ message: "email verified successfully!" });
+                return NextResponse.redirect('http://localhost:3000/login');
             }
         }
         else {

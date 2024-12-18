@@ -6,12 +6,15 @@ import { notify } from '@/app/signup/page';
 import MetaverseModal from '@/app/_components/MetaverseModal';
 import AddMockInterviewModal from '@/app/_components/AddMockInterview';
 import { useRouter } from 'next/navigation';
+import Cookies from 'js-cookie';
 
 const Dashboard = () => {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const router = useRouter();
+
 
   const toggleModal=()=> {
      setIsModalOpen(!isModalOpen);

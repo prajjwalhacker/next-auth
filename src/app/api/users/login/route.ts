@@ -35,9 +35,7 @@ export async function POST(request: NextRequest) {
                 userObj.accessToken = token;
                 await userObj.save();
 
-                response.cookies.set('token', token, {
-                    httpOnly: true
-                });
+                response.cookies.set('token', token);
                 return response;
             }
             else {

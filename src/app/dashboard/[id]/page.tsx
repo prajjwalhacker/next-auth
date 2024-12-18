@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Navbar from '../../_components/Navbar';
 import axios from 'axios';
 import { notify } from '@/app/signup/page';
@@ -7,13 +7,16 @@ import MetaverseModal from '@/app/_components/MetaverseModal';
 import AddMockInterviewModal from '@/app/_components/AddMockInterview';
 import { useRouter } from 'next/navigation';
 import Cookies from 'js-cookie';
+import UnauthorizedAccess from '@/app/_components/ErrorPage';
 
 const Dashboard = () => {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
 
   const router = useRouter();
+
 
 
   const toggleModal=()=> {
@@ -40,8 +43,6 @@ const Dashboard = () => {
            onLogout();
         }
     },
-
-    
   ]
 
   const interviews = [
@@ -86,7 +87,54 @@ const Dashboard = () => {
       description: "Topics include CI/CD pipelines and cloud architecture."
     },
   ];
-  
+
+
+  const getDashboardData = async () => {
+    try {
+    const token = Cookies.get('token'); 
+    const response = await axios.get(`/api/users/usersData`,{
+      withCredentials: true, 
+      headers: {
+        Cookie: `token=${token}`,
+      },
+    })
+    console.log("response");
+    console.log(response)
+    }
+    catch (err: any) {
+       console.log("err");
+       if (err?.response?.data?.message === 'UnAuthorizedError') {
+          setError(true);
+       }
+    }
+    finally {
+       setLoading(false);
+    }
+  }
+
+
+  useEffect(() => {
+     getDashboardData();
+  }, []);
+
+
+  if (loading) {
+      return (
+        <div className='flex h-screen justify-center items-center'>
+        <div className="relative w-16 h-16">
+    <div className="absolute inset-0 rounded-full border-4 border-t-transparent border-purple-500 animate-spin"></div>
+    <div className="absolute inset-2 rounded-full border-4 border-purple-500 opacity-30"></div>
+    <div className="absolute inset-4 rounded-full bg-gradient-to-br from-purple-800 via-gray-900 to-black"></div>
+  </div>
+  </div>
+      )  
+  }
+
+  if (error) {
+      return (
+        <UnauthorizedAccess/>
+      )
+  }  
 
   return (
     <div className="bg-primary-black h-screen overflow-hidden">

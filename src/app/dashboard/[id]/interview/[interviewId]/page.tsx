@@ -3,6 +3,7 @@ import React from 'react'
 import Navbar from '@/app/_components/Navbar'
 import { notify } from '@/app/signup/page';
 import axios from 'axios';
+import InterviewPanel from '@/app/_components/InterviewPanel';
 
 const page = () => {
 
@@ -32,6 +33,7 @@ const page = () => {
   return (
     <div className="bg-primary-black h-screen overflow-hidden">
       <Navbar buttons={buttons} />
+      <InterviewPanel/>
     </div>
   )
 }

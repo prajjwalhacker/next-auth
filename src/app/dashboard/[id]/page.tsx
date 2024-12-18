@@ -8,6 +8,7 @@ import AddMockInterviewModal from '@/app/_components/AddMockInterview';
 import { useRouter } from 'next/navigation';
 import Cookies from 'js-cookie';
 import UnauthorizedAccess from '@/app/_components/ErrorPage';
+import { useParams } from 'next/navigation';
 
 const Dashboard = () => {
 
@@ -15,7 +16,11 @@ const Dashboard = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
 
+  const [interviews, setInterviews] = useState([]);
+
   const router = useRouter();
+
+  const { id } = useParams();
 
 
 
@@ -34,6 +39,8 @@ const Dashboard = () => {
         console.log(err);
         }
   }
+
+
   const buttons = [
     {
         name: "logout",
@@ -45,61 +52,17 @@ const Dashboard = () => {
     },
   ]
 
-  const interviews = [
-    {
-      id: 1,
-      title: "Frontend Developer Interview",
-      date: "2024-12-15",
-      time: "10:00 AM",
-      status: "Completed",
-      description: "Interview focused on React.js and CSS techniques."
-    },
-    {
-      id: 2,
-      title: "Backend Developer Interview",
-      date: "2024-12-16",
-      time: "2:00 PM",
-      status: "Scheduled",
-      description: "Focus on Node.js and database management."
-    },
-    {
-      id: 3,
-      title: "Fullstack Developer Interview",
-      date: "2024-12-17",
-      time: "11:00 AM",
-      status: "Pending",
-      description: "Includes MERN stack topics and system design."
-    },
-    {
-      id: 4,
-      title: "UI/UX Designer Interview",
-      date: "2024-12-18",
-      time: "3:00 PM",
-      status: "Cancelled",
-      description: "Discussion about Figma and user experience design."
-    },
-    {
-      id: 5,
-      title: "DevOps Engineer Interview",
-      date: "2024-12-19",
-      time: "9:00 AM",
-      status: "Completed",
-      description: "Topics include CI/CD pipelines and cloud architecture."
-    },
-  ];
-
 
   const getDashboardData = async () => {
     try {
     const token = Cookies.get('token'); 
-    const response = await axios.get(`/api/users/usersData`,{
+    const response = await axios.get(`/api/users/usersData?userId=${id}`,{
       withCredentials: true, 
       headers: {
         Cookie: `token=${token}`,
       },
     })
-    console.log("response");
-    console.log(response)
+      setInterviews(response?.data?.interviews || []);
     }
     catch (err: any) {
        console.log("err");
@@ -153,14 +116,14 @@ const Dashboard = () => {
             }}
           >
             <h2 className="text-xl font-semibold text-white mb-2">
-              {interview.title}
+              {interview.jobTitle}
             </h2>
             <p className="text-gray-300 text-sm mb-4">
-              Framework: <span className="text-purple-400">{interview.description}</span>
+              Framework: <span className="text-purple-400">{interview.framework}</span>
             </p>
             <p className="text-gray-300 text-sm">
               Years of Experience:{" "}
-              <span className="text-purple-400">{interview.status}</span>
+              <span className="text-purple-400">{interview.yearsOfExperience}</span>
             </p>
           </div>
         ))}

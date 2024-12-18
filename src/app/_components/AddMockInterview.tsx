@@ -1,24 +1,50 @@
 import React, { useState } from 'react';
-
+import Cookies from 'js-cookie';
+import axios from 'axios';
+import { useParams } from 'next/navigation';
 const frameworks = ["Node.js", "React.js", "Angular", "Vue.js", "Next.js", "Svelte", "Express.js", "NestJS"];
 
 const AddMockInterviewModal = ({ isModalOpen, setIsModalOpen, toggleModal }) => {
 
   const [jobTitle, setJobTitle] = useState('');
   const [framework, setFramework] = useState('');
-  const [yearsOfExperience, setYearsOfExperience] = useState('');
+  const [yearsOfExperience, setYearsOfExperience] = useState('');  
+  const [loading, setLoading] = useState(false);
 
-  const handleCreateInterview = () => {
-    console.log({
-      jobTitle,
-      framework,
-      yearsOfExperience,
-    });
-    alert("Mock Interview Created!");
-    toggleModal();
+  const { id } = useParams();
+
+  const handleCreateInterview = async () => {
+
+     setLoading(true);
+      try {
+        const token = Cookies.get('token'); 
+        const response = await axios.post(`/api/interview/create`, {
+          jobTitle,
+          framework,
+          yearsOfExperience,
+          userId: id
+        }, {
+          withCredentials: true, 
+          headers: {
+            Cookie: `token=${token}`,
+          },
+        })
+        console.log("response");
+        console.log(response);
+      }
+      catch (err: any) {
+         
+      }
+      finally {
+        setLoading(false);
+      }
   };
 
   if (!isModalOpen) return null;
+
+
+  console.log("loading");
+  console.log(loading);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-black via-purple-900 to-gray-800 flex justify-center items-center">
@@ -80,7 +106,7 @@ const AddMockInterviewModal = ({ isModalOpen, setIsModalOpen, toggleModal }) => 
               onClick={handleCreateInterview}
               className="mt-6 w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:opacity-80 transition-all text-white py-2 rounded-lg font-semibold"
             >
-              Create Mock Interview
+              {loading ? 'Creating interview ...' : 'Create Mock Interview' }
             </button>
 
             {/* Close Button */}

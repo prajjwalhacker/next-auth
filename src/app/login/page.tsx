@@ -178,7 +178,7 @@ const Login = () => {
     <span className="text-blue-500 font-semibold"> numeric</span>, and 
     <span className="text-yellow-500 font-semibold"> special character</span>.
   </p>
-     <button key={'register'} className="px-6 py-3 bg-white text-primary-black font-semibold rounded-full shadow-md hover:bg-gray-100 hover:shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-1" onClick={(e) => { 
+     <button key={'register'} className="flex justify-center px-6 py-3 bg-white text-primary-black font-semibold rounded-full shadow-md hover:bg-gray-100 hover:shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-1" onClick={(e) => { 
         onSubmit(e);
      }}>
           {loading ? <div className="relative w-16 h-16">

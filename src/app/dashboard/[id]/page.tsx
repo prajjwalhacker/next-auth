@@ -3,6 +3,8 @@ import React from 'react'
 import Navbar from '../../_components/Navbar';
 import axios from 'axios';
 import { notify } from '@/app/signup/page';
+import MetaverseModal from '@/app/_components/MetaverseModal';
+import AddMockInterviewModal from '@/app/_components/AddMockInterview';
 
 const Dashboard = () => {
 
@@ -29,6 +31,8 @@ const Dashboard = () => {
   return (
     <div className="bg-primary-black h-screen overflow-hidden">
        <Navbar buttons={buttons}/>   
+       <MetaverseModal/>
+       <AddMockInterviewModal/>
     </div>
   )
 }

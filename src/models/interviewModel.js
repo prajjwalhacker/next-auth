@@ -5,12 +5,15 @@ const interviewSchema = new mongoose.Schema({
     userId: mongoose.Types.ObjectId,
     jobTitle: String,
     framework: String,
+    open: Boolean,
+    close: Boolean,
     yearsOfExperience: String,
     questions: [
         {
             question: String,
             answer: String,
-            userAnswer: String
+            userAnswer: String,
+            feedback: String
         }
     ]
 });

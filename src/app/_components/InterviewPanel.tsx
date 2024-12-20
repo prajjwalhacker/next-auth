@@ -2,14 +2,22 @@ import React, { useEffect, useRef, useState } from "react";
 import { useParams } from "next/navigation";
 import axios from "axios";
 import WebcamWithAudioToText from './WeCam';
+import Cookies from 'js-cookie';
+import { notify } from "../signup/page";
+import TestCompletionModal from "./MOdal";
 
 const InterviewPanel = () => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [questions, setQuestions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [transcript, setTranscript] = useState("Initializing speech recognition...");
+  const [solution, setSolution] = useState('');
+  const [answerLoading, setAnswerLooading] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
 
-  const { interviewId } = useParams();
+  const closeModal = () => setIsOpen(false);
+
+  const { interviewId, id } = useParams();
 
   const handleNextQuestion = () => {
     if (currentQuestion === questions.length) return;
@@ -31,6 +39,40 @@ const InterviewPanel = () => {
       finally {
         setLoading(false);
       }
+   }
+
+
+   const onAnswerSubmit = async () => {
+    setAnswerLooading(true);
+    try {
+    const token = Cookies.get('token');
+    const res = await axios.post(`/api/interview/answerSubmit`, {
+      solution,
+      questionId: questions?.[currentQuestion]?._id,
+      userId: id,
+      interviewId
+    }, {
+      withCredentials: true, 
+      headers: {
+        Cookie: `token=${token}`,
+      },
+    })
+    console.log("answer submit !!");
+    console.log(res);
+    if (res?.data) {
+      setCurrentQuestion((prev) => prev + 1);
+      notify('Answer Submitted', 'success');
+      setSolution('');
+    }
+    }
+    catch(err) {
+       console.log("err");
+       console.log("Something went wrong");
+       console.log(err);
+    }
+    finally {
+      setAnswerLooading(false);
+    }
    }
 
 
@@ -70,12 +112,18 @@ const InterviewPanel = () => {
           id="metaverseTextarea"
           className="w-full h-40 p-4 text-white bg-gradient-to-br from-gray-800 to-gray-900 border border-gray-700 rounded-lg shadow-md resize-none focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent placeholder-gray-500"
           placeholder="Your Solution..."
+          value={solution}
+          onChange={(e)=>{
+             setSolution(e.target.value);
+          }}
         ></textarea>
          <button
-          onClick={()=>{}}
+          onClick={()=>{
+            onAnswerSubmit();
+          }}
           className="px-6 py-3 mt-4 bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 text-black font-semibold rounded-lg shadow-md hover:scale-105 transition-transform"
         >
-          Submit
+          {answerLoading ? 'Submitting...': 'Submit'}
         </button>
       </div>
 
@@ -87,6 +135,7 @@ const InterviewPanel = () => {
           </div>
         </div>
       </div>
+      <TestCompletionModal isOpen={isOpen} closeModal={closeModal}/>
     </div>
   );
 };

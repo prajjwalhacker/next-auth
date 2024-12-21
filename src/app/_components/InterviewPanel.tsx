@@ -60,7 +60,7 @@ const InterviewPanel = () => {
     console.log("answer submit !!");
     console.log(res);
     if (res?.data) {
-      setCurrentQuestion((prev) => prev + 1);
+      if (currentQuestion < questions?.length) setCurrentQuestion((prev) => prev + 1);
       notify('Answer Submitted', 'success');
       setSolution('');
     }

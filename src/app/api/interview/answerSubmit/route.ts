@@ -56,12 +56,6 @@ export async function POST(request: NextRequest) {
 
     const ans = response.choices[0].message.content;
 
-
-
-    console.log("hellloooo");
-    console.log({ _id: new mongoose.Types.ObjectId(interviewId), "questions._id": new mongoose.Types.ObjectId(questionId) });
-    console.log(ans);
-
     await Interview.updateOne({ _id: new mongoose.Types.ObjectId(interviewId), "questions._id": new mongoose.Types.ObjectId(questionId) }, {
         $set: {
             "questions.$.userAnswer": solution,

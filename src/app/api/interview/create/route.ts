@@ -25,7 +25,9 @@ export async function POST(request: NextRequest) {
     const interviewObj = await Interview.create({ jobTitle,
       framework,
       yearsOfExperience,
-      userId
+      userId,
+      open: true,
+      close: false
     })
       
 

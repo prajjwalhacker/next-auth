@@ -1,10 +1,12 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState } from 'react';
 import Cookies from 'js-cookie';
 import axios from 'axios';
 import { useParams } from 'next/navigation';
 const frameworks = ["Node.js", "React.js", "Angular", "Vue.js", "Next.js", "Svelte", "Express.js", "NestJS"];
 
-const AddMockInterviewModal = ({ isModalOpen, setIsModalOpen, toggleModal }) => {
+const AddMockInterviewModal = ({ isModalOpen, toggleModal }: { isModalOpen: boolean, toggleModal: ()=>void }) => {
 
   const [jobTitle, setJobTitle] = useState('');
   const [framework, setFramework] = useState('');

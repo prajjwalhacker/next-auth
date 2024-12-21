@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useParams } from "next/navigation";
 import axios from "axios";
 import WebcamWithAudioToText from './WeCam';
@@ -17,6 +17,7 @@ const InterviewPanel = () => {
   const [startInterviewModal, setStartInterviewModal] = useState(true);
   const [isOpen, setIsOpen] = useState(false);
   const [error, setError] = useState(false)
+  const previewRef = useRef({});
 
   const closeModal = () => setIsOpen(false);
 
@@ -116,8 +117,23 @@ const InterviewPanel = () => {
 
 
    useEffect(() => {
-       getInterview();
+       getInterview()
    }, []);
+
+   const mediaFunction=async ()=> {
+    const stream = await navigator.mediaDevices.getUserMedia({
+      video: true,
+      audio: true,
+    });
+    if (previewRef.current) {
+      previewRef.current.srcObject = stream;
+    }
+
+   }
+
+   useEffect(() => {
+       mediaFunction();
+   }, [])
 
    if (loading) {
     return (
@@ -170,10 +186,15 @@ const InterviewPanel = () => {
 
       {/* Right Panel: Webcam Video */}
       <div className="w-1/3 p-6 flex items-center justify-center bg-gray-800 rounded-lg shadow-md">
-        <div className="relative w-80 h-80 rounded-lg bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-600 shadow-lg">
-          <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 rounded-lg">
-            <WebcamWithAudioToText/> 
-          </div>
+      <div className="text-center w-full">
+        <h1 className="text-xl text-white font-bold mb-4">Webcam Recorder</h1>
+
+        <video
+          ref={previewRef}
+          autoPlay
+          muted
+          className="w-full rounded border border-gray-300 mb-4"
+        ></video>
         </div>
       </div>
       <TestCompletionModal isOpen={isOpen} closeModal={closeModal}/>

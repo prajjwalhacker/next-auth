@@ -55,7 +55,7 @@ export const notify = (msg, type) => {
         fontFamily: "'Roboto', sans-serif",
       }
     });
-  };
+};
 
 const Signup = () => {
 

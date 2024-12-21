@@ -25,12 +25,13 @@ export async function GET(request: NextRequest) {
         console.log(id);
 
         
-        const interviews = await Interview.find({ userId: new mongoose.Types.ObjectId(id) }).lean();
+        const interviews = await Interview.find({ userId: new mongoose.Types.ObjectId(id!) }).lean();
 
         return NextResponse.json({ interviews });
         
      }
      catch (err: any) {
-
+        console.log("Err");
+        console.log(err);
      }
 }

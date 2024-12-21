@@ -56,14 +56,7 @@ export async function POST(request: NextRequest) {
 
     const ans = response.choices[0].message.content;
 
-    await Interview.updateOne({ _id: new mongoose.Types.ObjectId(interviewId), "questions._id": new mongoose.Types.ObjectId(questionId) }, {
-        $set: {
-            "questions.$.userAnswer": solution,
-            "questions.$.feedback": Number(ans)
-        }
-    });
-
-    return NextResponse.json({ msg: "answer is submitted" });
+    return NextResponse.json({ msg: "answer is submitted", feedback:  Number(ans) });
        
    } 
    catch (err) {

@@ -2,7 +2,7 @@ import React from "react";
 import { useParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 
-const TestCompletionModal = ({ isOpen, closeModal }: { isOpen: boolean, closeModal: ()=>void }) => {
+const TestCompletionModal = ({ isOpen, closeModal,  feedback }: { isOpen: boolean, closeModal: ()=>void, feedback: number }) => {
  
   const { id } = useParams();
   const router = useRouter();
@@ -13,7 +13,7 @@ const TestCompletionModal = ({ isOpen, closeModal }: { isOpen: boolean, closeMod
         <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50">
           <div className="bg-gradient-to-r from-purple-800 via-blue-700 to-indigo-900 text-white rounded-xl shadow-lg w-11/12 md:w-1/3 p-6 transform transition-all scale-105">
             <div className="text-center space-y-4">
-              <h2 className="text-2xl font-bold">Your AI Interview is Over</h2>
+              <h2 className="text-2xl font-bold">Your AI Interview is Over, Your Rating is {`${feedback}`} / {100}</h2>
               <p className="text-sm text-gray-300">
                 Thank you for participating in this Metaverse-inspired AI interview experience.
               </p>

@@ -16,7 +16,8 @@ const InterviewPanel = () => {
   const [answerLoading, setAnswerLooading] = useState(false);
   const [startInterviewModal, setStartInterviewModal] = useState(true);
   const [isOpen, setIsOpen] = useState(false);
-  const [error, setError] = useState(false)
+  const [error, setError] = useState(false);
+  const [feedback, setFeedback] = useState(0);
   const previewRef = useRef({});
 
   const closeModal = () => setIsOpen(false);
@@ -73,7 +74,7 @@ const InterviewPanel = () => {
       },
     })
     console.log("answer submit !!");
-    console.log(res);
+    setFeedback((prev) => Number(prev) + res?.data?.feedback);
     if (res?.data) {
       if (currentQuestion < questions?.length-1) setCurrentQuestion((prev) => prev + 1);
       else {
@@ -197,7 +198,7 @@ const InterviewPanel = () => {
         ></video>
         </div>
       </div>
-      <TestCompletionModal isOpen={isOpen} closeModal={closeModal}/>
+      <TestCompletionModal isOpen={isOpen} closeModal={closeModal} feedback={feedback}/>
       <InterviewModal startInterviewModal={startInterviewModal} setStartInterviewModal={setStartInterviewModal} onBeginInterview={onBeginInterview}/>
     </div>
   );

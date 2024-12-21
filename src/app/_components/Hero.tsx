@@ -1,5 +1,5 @@
 'use client';
-import { navVariants, slideIn, staggerContainer, textVariant } from "@/utils/motion";
+import {  slideIn, staggerContainer, textVariant } from "@/utils/motion";
 import styles from "@/utils/stylesMap";
 import coverI from '../../../public/cover.png';
 import { motion } from "framer-motion";

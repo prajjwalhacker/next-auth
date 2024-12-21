@@ -81,9 +81,6 @@ const Signup = () => {
         const { email, username, password } = formData || {};
     
         const res = await axios.post('/api/users/signup', formData); // Relative URL for Next.js
-
-        console.log("res");
-        console.log(res);
     
         if (res?.data?.error) {
             notify(res?.data?.error, 'error');

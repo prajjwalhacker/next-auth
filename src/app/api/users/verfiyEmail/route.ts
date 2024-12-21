@@ -5,7 +5,7 @@ import User  from '@/models/userModel';
 
 connect();
 
-export async function POST(request: NextRequest) {
+export async function GET(request: NextRequest) {
     try {
 
         const url = new URL(request.url); // Get the URL object
@@ -25,7 +25,7 @@ export async function POST(request: NextRequest) {
                 userObj.verifyToken = null;
                 userObj.verifyTokenExpiry = null;
                 await userObj.save();
-                return NextResponse.redirect('http://localhost:3000/login');
+                return NextResponse.redirect(`${process.env.DOMAIN}/login`);
             }
         }
         else {

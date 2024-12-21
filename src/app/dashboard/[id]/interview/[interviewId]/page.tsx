@@ -1,7 +1,7 @@
 "use client"
 import React from 'react'
 import Navbar from '@/app/_components/Navbar'
-import { notify } from '@/app/signup/page';
+import { notify } from '@/app/signup/page.jsx';
 import axios from 'axios';
 import InterviewPanel from '@/app/_components/InterviewPanel';
 

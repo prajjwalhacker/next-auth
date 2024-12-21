@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react'
 import Navbar from '../../_components/Navbar';
 import axios from 'axios';
-import { notify } from '@/app/signup/page';
+import { notify } from '@/app/signup/page.jsx';
 import MetaverseModal from '@/app/_components/MetaverseModal';
 import AddMockInterviewModal from '@/app/_components/AddMockInterview';
 import { useRouter } from 'next/navigation';

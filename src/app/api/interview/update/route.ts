@@ -11,6 +11,10 @@ export async function POST(request: NextRequest) {
     try {
        const { close, open, interviewId } = await request.json();
 
+       console.log("open and close");
+       console.log(open);
+       console.log(close);
+
        if (!interviewId) {
           return NextResponse.json({ msg: "interview id is required" });
        }

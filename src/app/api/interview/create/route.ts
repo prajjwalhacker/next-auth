@@ -26,7 +26,7 @@ export async function POST(request: NextRequest) {
       framework,
       yearsOfExperience,
       userId,
-      open: true,
+      open: false,
       close: false
     })
       

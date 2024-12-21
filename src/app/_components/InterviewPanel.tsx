@@ -5,6 +5,7 @@ import WebcamWithAudioToText from './WeCam';
 import Cookies from 'js-cookie';
 import { notify } from "../signup/page";
 import TestCompletionModal from "./MOdal";
+import InterviewModal from "./StartInterview";
 
 const InterviewPanel = () => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -13,6 +14,7 @@ const InterviewPanel = () => {
   const [transcript, setTranscript] = useState("Initializing speech recognition...");
   const [solution, setSolution] = useState('');
   const [answerLoading, setAnswerLooading] = useState(false);
+  const [startInterviewModal, setStartInterviewModal] = useState(true);
   const [isOpen, setIsOpen] = useState(true);
 
   const closeModal = () => setIsOpen(false);
@@ -136,6 +138,7 @@ const InterviewPanel = () => {
         </div>
       </div>
       <TestCompletionModal isOpen={isOpen} closeModal={closeModal}/>
+      <InterviewModal startInterviewModal={startInterviewModal} setStartInterviewModal={setStartInterviewModal}/>
     </div>
   );
 };

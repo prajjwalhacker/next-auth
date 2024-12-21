@@ -64,7 +64,7 @@ const Dashboard = () => {
     })
       setInterviews(response?.data?.interviews || []);
     }
-    catch (err: any) {
+    catch (err) {
        console.log("err");
        if (err?.response?.data?.message === 'UnAuthorizedError') {
           setError(true);

@@ -50,7 +50,7 @@ const Login = () => {
      return errorObj;
   }
 
-   const notify = (msg, type) => {
+   const notify = (msg: any, type: any) => {
           if (type === 'success') {
               toast.success(msg, {
                   position: "top-center",

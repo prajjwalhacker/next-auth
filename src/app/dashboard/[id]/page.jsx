@@ -2,13 +2,13 @@
 import React, { useEffect, useState } from 'react'
 import Navbar from '../../_components/Navbar';
 import axios from 'axios';
-import { notify } from '@/app/signup/page.jsx';
 import MetaverseModal from '@/app/_components/MetaverseModal';
 import AddMockInterviewModal from '@/app/_components/AddMockInterview';
 import { useRouter } from 'next/navigation';
 import Cookies from 'js-cookie';
 import UnauthorizedAccess from '@/app/_components/ErrorPage';
 import { useParams } from 'next/navigation';
+import { notify } from '@/utils/notify';
 
 const Dashboard = () => {
 

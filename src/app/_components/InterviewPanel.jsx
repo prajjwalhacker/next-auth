@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { useParams } from "next/navigation";
 import axios from "axios";
 import Cookies from 'js-cookie';
-import { notify } from "../signup/page.jsx";
+import { notify } from "@/utils/notify";
 import TestCompletionModal from "./MOdal";
 import InterviewModal from "./StartInterview";
 

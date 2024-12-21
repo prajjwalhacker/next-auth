@@ -59,7 +59,7 @@ export async function POST(request: NextRequest) {
     await Interview.updateOne({ _id: new mongoose.Types.ObjectId(interviewId), "questions._id": new mongoose.Types.ObjectId(questionId) }, {
         $set: {
             "questions.$.userAnswer": solution,
-            "questions.$.feedback": String(ans)
+            "questions.$.feedback": Number(ans)
         }
     });
 
@@ -67,6 +67,8 @@ export async function POST(request: NextRequest) {
        
    } 
    catch (err) {
-     
+     console.log("Err");
+     console.log(err);
+     NextResponse.json({ msg: "Something went wrong" });
    } 
 }

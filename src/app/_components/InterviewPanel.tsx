@@ -17,14 +17,19 @@ const InterviewPanel = () => {
   const [startInterviewModal, setStartInterviewModal] = useState(true);
   const [isOpen, setIsOpen] = useState(false);
   const [interviewStarted, setInterviewStarted] = useState(false);
+  const [error, setError] = useState(false)
 
   const closeModal = () => setIsOpen(false);
 
   const { interviewId, id } = useParams();
 
   const handleNextQuestion = () => {
-    if (currentQuestion === questions.length) return;
-    setCurrentQuestion((prev) => prev + 1); // Increment question number
+    if (currentQuestion < questions.length - 1) {
+      setCurrentQuestion((prev) => prev + 1); // Increment question number
+    }
+    else {
+      setIsOpen(true);
+    }
   };
 
    const getInterview = async () => {
@@ -46,6 +51,12 @@ const InterviewPanel = () => {
 
 
    const onAnswerSubmit = async () => {
+    if (!solution?.length) {
+      setError(true);
+    }
+    else {
+      setError(false);
+    }
     setAnswerLooading(true);
     try {
     const token = Cookies.get('token');
@@ -142,9 +153,11 @@ const InterviewPanel = () => {
           placeholder="Your Solution..."
           value={solution}
           onChange={(e)=>{
+             setError(false);
              setSolution(e.target.value);
           }}
         ></textarea>
+        {!!error && <p className="text-sm text-red-500 font-semibold animate-pulse">{'Solution is required'}</p>}
          <button
           onClick={()=>{
             onAnswerSubmit();
@@ -165,7 +178,6 @@ const InterviewPanel = () => {
       </div>
       <TestCompletionModal isOpen={isOpen} closeModal={closeModal}/>
       <InterviewModal startInterviewModal={startInterviewModal} setStartInterviewModal={setStartInterviewModal} onBeginInterview={onBeginInterview}/>
-
     </div>
   );
 };

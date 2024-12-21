@@ -13,7 +13,7 @@ const interviewSchema = new mongoose.Schema({
             question: String,
             answer: String,
             userAnswer: String,
-            feedback: String
+            feedback: { type: Number, default: 0 }
         }
     ]
 });

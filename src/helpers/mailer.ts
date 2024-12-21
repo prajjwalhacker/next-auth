@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import nodemailer from 'nodemailer';
 import bcryptjs from 'bcryptjs';
 import User from '@/models/userModel';

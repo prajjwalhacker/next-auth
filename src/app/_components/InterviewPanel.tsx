@@ -15,7 +15,8 @@ const InterviewPanel = () => {
   const [solution, setSolution] = useState('');
   const [answerLoading, setAnswerLooading] = useState(false);
   const [startInterviewModal, setStartInterviewModal] = useState(true);
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
+  const [interviewStarted, setInterviewStarted] = useState(false);
 
   const closeModal = () => setIsOpen(false);
 
@@ -62,7 +63,10 @@ const InterviewPanel = () => {
     console.log("answer submit !!");
     console.log(res);
     if (res?.data) {
-      if (currentQuestion < questions?.length) setCurrentQuestion((prev) => prev + 1);
+      if (currentQuestion < questions?.length-1) setCurrentQuestion((prev) => prev + 1);
+      else {
+        setIsOpen(true);
+      }
       notify('Answer Submitted', 'success');
       setSolution('');
     }
@@ -75,6 +79,28 @@ const InterviewPanel = () => {
     finally {
       setAnswerLooading(false);
     }
+   }
+
+   const onBeginInterview = async () => {
+    const token = Cookies.get('token');
+    try {
+      await axios.post(`/api/interview/update`, {
+        interviewId, 
+        open: true,
+        close: false
+      }, {
+        withCredentials: true, 
+        headers: {
+          Cookie: `token=${token}`,
+        },
+      })
+      alert('Dont refresh the page!');
+    }
+    catch (err) {
+       console.log("err");
+       console.log(err);
+    }
+    
    }
 
 
@@ -138,7 +164,8 @@ const InterviewPanel = () => {
         </div>
       </div>
       <TestCompletionModal isOpen={isOpen} closeModal={closeModal}/>
-      <InterviewModal startInterviewModal={startInterviewModal} setStartInterviewModal={setStartInterviewModal}/>
+      <InterviewModal startInterviewModal={startInterviewModal} setStartInterviewModal={setStartInterviewModal} onBeginInterview={onBeginInterview}/>
+
     </div>
   );
 };

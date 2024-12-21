@@ -1,6 +1,6 @@
 import React from 'react';
 
-const InterviewModal = ({ startInterviewModal, setStartInterviewModal }: { startInterviewModal: boolean, setStartInterviewModal: (val: any)=>void }) => {
+const InterviewModal = ({ startInterviewModal, setStartInterviewModal, onBeginInterview }: { startInterviewModal: boolean, setStartInterviewModal: (val: any)=>void , onBeginInterview: ()=>void }) => {
 
 
   return (
@@ -24,7 +24,7 @@ const InterviewModal = ({ startInterviewModal, setStartInterviewModal }: { start
             {/* Action Button */}
             <div className="flex justify-center">
               <button
-                onClick={() => setStartInterviewModal(false)}
+                onClick={() => { setStartInterviewModal(false); onBeginInterview(); }}
                 className="px-8 py-3 rounded-full bg-gradient-to-r from-purple-600 to-blue-600 text-lg font-semibold shadow-md hover:scale-105 transition-transform"
               >
                 Lets Begin

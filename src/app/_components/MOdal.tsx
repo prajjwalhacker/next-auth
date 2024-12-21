@@ -1,7 +1,11 @@
 import React from "react";
+import { useParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 const TestCompletionModal = ({ isOpen, closeModal }: { isOpen: boolean, closeModal: ()=>void }) => {
-
+ 
+  const { id } = useParams();
+  const router = useRouter();
 
   return (
     <>
@@ -14,7 +18,7 @@ const TestCompletionModal = ({ isOpen, closeModal }: { isOpen: boolean, closeMod
                 Thank you for participating in this Metaverse-inspired AI interview experience.
               </p>
               <button
-                onClick={closeModal}
+                onClick={() => {  closeModal();  router.push(`/dashboard/${id}`)  }}
                 className="mt-4 px-4 py-2 bg-gradient-to-r from-pink-500 to-yellow-500 rounded-lg text-white shadow-md hover:scale-105 transition-transform"
               >
                 Close

@@ -10,7 +10,8 @@ connect();
 export async function POST(request: NextRequest) {
 
  
-  const { jobTitle,
+  const { 
+    jobTitle,
     framework,
     yearsOfExperience ,
     userId
@@ -42,7 +43,7 @@ export async function POST(request: NextRequest) {
     const arrayString = (response.choices[0].message.content || '').slice(
         (response.choices[0].message.content || '').indexOf("["),
         (response.choices[0].message.content || '').lastIndexOf("]") + 1
-      );
+    );
       
       // Step 2: Parse the string into a JavaScript array
       const questionsArray = eval(arrayString);

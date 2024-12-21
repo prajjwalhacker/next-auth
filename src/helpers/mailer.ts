@@ -39,7 +39,7 @@ export const sendEmail = async ({ email, emailType, userId }: { email: string, e
     <div style="font-family: Arial, sans-serif; line-height: 1.5; padding: 20px; background-color: #f9f9f9; border: 1px solid #ddd;">
       <h1 style="color: #333;">Hello, ${updatedUser?.username || 'Anonymos'}</h1>
       <p style="font-size: 16px; color: #555;">This is a mail regarding <b>Email</b> and <b>Verification</b>.</p>
-      <p style="font-size: 14px; color: #777;">Please verify your email y clicking ${`${process.env.DOMAIN}/api/verfiyEmail?token=${hashedToken}`}</p>
+      <p style="font-size: 14px; color: #777;">Please verify your email y clicking ${`${process.env.DOMAIN}/api/users/verfiyEmail?token=${hashedToken}`}</p>
       <div style="margin-top: 20px; padding: 10px; background-color: #e7f3fe; border: 1px solid #b3d7ff;">
         <p style="font-size: 14px; color: #0056b3;">If you have any questions, feel free to reply to this email.</p>
       </div>

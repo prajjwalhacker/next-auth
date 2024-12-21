@@ -19,8 +19,8 @@ function validatePassword(password) {
 
 const Signup = () => {
 
-    const [formData, setFormData] = useState<any>({});
-    const [error, setError] = useState<any>({});
+    const [formData, setFormData] = useState({});
+    const [error, setError] = useState({});
     const [loading, setLoading] = useState(false);
     const router = useRouter();
 

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react';
 
 const InterviewModal = ({ startInterviewModal, setStartInterviewModal, onBeginInterview }: { startInterviewModal: boolean, setStartInterviewModal: (val: any)=>void , onBeginInterview: ()=>void }) => {

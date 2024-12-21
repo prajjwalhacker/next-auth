@@ -23,7 +23,7 @@ export async function GET(request: NextRequest) {
         const interviewId = request.nextUrl.searchParams.get('interviewId');
 
 
-        const interviewObj = await Interview.find({ _id: new mongoose.Types.ObjectId(interviewId) }).lean();
+        const interviewObj = await Interview.find({ _id: new mongoose.Types.ObjectId(interviewId!) }).lean();
 
         return NextResponse.json({ interviewObj });
 

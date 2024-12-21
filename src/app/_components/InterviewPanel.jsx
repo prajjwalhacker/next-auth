@@ -2,7 +2,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useParams } from "next/navigation";
 import axios from "axios";
-import WebcamWithAudioToText from './WeCam';
 import Cookies from 'js-cookie';
 import { notify } from "../signup/page";
 import TestCompletionModal from "./MOdal";
@@ -10,7 +9,7 @@ import InterviewModal from "./StartInterview";
 
 const InterviewPanel = () => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
-  const [questions, setQuestions] = useState<any[]>([]);
+  const [questions, setQuestions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [solution, setSolution] = useState('');
   const [answerLoading, setAnswerLooading] = useState(false);
@@ -42,7 +41,7 @@ const InterviewPanel = () => {
         setQuestions(response?.data?.interviewObj?.[0].questions || []);
 
       }
-      catch (err: any) {
+      catch (err) {
         console.log("error");
         console.log(err);
       }

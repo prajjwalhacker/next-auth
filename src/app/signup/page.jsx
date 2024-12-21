@@ -64,8 +64,6 @@ const Signup = () => {
     const [loading, setLoading] = useState(false);
     const router = useRouter();
 
-
-
     const buttons = [
         {
             name: "login",
@@ -144,7 +142,6 @@ const Signup = () => {
     finally {
         setLoading(false);
     }
-
 }
 
 

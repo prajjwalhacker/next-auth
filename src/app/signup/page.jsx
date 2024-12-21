@@ -9,7 +9,7 @@ import { useRouter } from 'next/navigation';
 
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-function validatePassword(password: string) {
+function validatePassword(password) {
     // Regex to check the conditions
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
   
@@ -82,7 +82,7 @@ const Signup = () => {
   const validateForm = () => {
     const { email, password, username } = formData || {};
 
-    const errorObj: any = {};
+    const errorObj = {};
     if (!email?.length) {
        errorObj.email = 'Email is required';
     }
@@ -106,7 +106,7 @@ const Signup = () => {
     return errorObj;
  }
 
- const onSubmit =async (e:any) => {
+ const onSubmit =async (e) => {
     e.preventDefault();
     const errorObj = validateForm();
 
@@ -168,7 +168,7 @@ const Signup = () => {
       className="w-full px-4 py-3 bg-primary-black text-white placeholder-gray-400 font-medium rounded-lg border-2 border-gray-600 focus:outline-none focus:ring-4 focus:ring-purple-500 focus:border-purple-500 transition duration-300"
       value={formData?.email || ''}
       onChange={(e) => {
-         setFormData((val: any) => ({ ...val, email: e.target.value }))
+         setFormData((val) => ({ ...val, email: e.target.value }))
       }}
     />
     {error?.email?.length && <p className="text-sm text-red-500 font-semibold animate-pulse">{error.email || 'This is required'}</p>}
@@ -178,7 +178,7 @@ const Signup = () => {
       className="w-full px-4 py-3 bg-primary-black text-white placeholder-gray-400 font-medium rounded-lg border-2 border-gray-600 focus:outline-none focus:ring-4 focus:ring-purple-500 focus:border-purple-500 transition duration-300"
       value={formData?.username || ""}
       onChange={(e) => {
-         setFormData((val: any) => ({ ...val, username: e.target.value }))
+         setFormData((val) => ({ ...val, username: e.target.value }))
       }}
     />
     {error?.username?.length && <p className="text-sm text-red-500 font-semibold animate-pulse">{error.username || 'This is required'}</p>}
@@ -188,7 +188,7 @@ const Signup = () => {
       className="w-full px-4 py-3 bg-primary-black text-white placeholder-gray-400 font-medium rounded-lg border-2 border-gray-600 focus:outline-none focus:ring-4 focus:ring-purple-500 focus:border-purple-500 transition duration-300"
       value={formData?.password || ""}
       onChange={(e) => {
-        setFormData((val: any) => ({ ...val, password: e.target.value }))
+        setFormData((valy) => ({ ...val, password: e.target.value }))
      }}
     />
     {error?.password?.length && <p className="text-sm text-red-500 font-semibold animate-pulse">{error.password || 'This is required'}</p>}

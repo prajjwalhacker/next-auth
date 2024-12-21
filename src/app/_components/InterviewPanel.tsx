@@ -1,4 +1,5 @@
-import React, { useEffect, useRef, useState } from "react";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import React, { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import axios from "axios";
 import WebcamWithAudioToText from './WeCam';
@@ -9,14 +10,12 @@ import InterviewModal from "./StartInterview";
 
 const InterviewPanel = () => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
-  const [questions, setQuestions] = useState([]);
+  const [questions, setQuestions] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
-  const [transcript, setTranscript] = useState("Initializing speech recognition...");
   const [solution, setSolution] = useState('');
   const [answerLoading, setAnswerLooading] = useState(false);
   const [startInterviewModal, setStartInterviewModal] = useState(true);
   const [isOpen, setIsOpen] = useState(false);
-  const [interviewStarted, setInterviewStarted] = useState(false);
   const [error, setError] = useState(false)
 
   const closeModal = () => setIsOpen(false);
@@ -41,8 +40,9 @@ const InterviewPanel = () => {
         setQuestions(response?.data?.interviewObj?.[0].questions || []);
 
       }
-      catch (err) {
-
+      catch (err: any) {
+        console.log("error");
+        console.log(err);
       }
       finally {
         setLoading(false);

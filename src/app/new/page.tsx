@@ -24,7 +24,7 @@ const CodeEditorPage = () => {
   return (
     <div className="flex h-screen">
       {/* Left Side: Monaco Code Editor with Problem Statement */}
-      <div className="w-1/2 p-4 bg-gray-800">
+      <div className="h-full w-1/2 p-4 bg-gray-800 overflow-auto">
         <h2 className="text-2xl font-bold text-white mb-4">Problem Statement</h2>
         <p className="text-white mb-4">
           <strong>Problem:</strong> Given an array of integers, find the sum of all elements in the array.
@@ -41,18 +41,6 @@ const CodeEditorPage = () => {
         </p>
 
         <h2 className="text-2xl font-bold text-white mt-4 mb-2">Code Editor</h2>
-        <MonacoEditor
-          height="calc(100vh - 200px)" // Adjust the height based on the problem statement section
-          language={language}
-          value={code}
-          onChange={handleEditorChange}
-          theme="vs-dark" // You can change this to different themes like 'light' or 'vs'
-          options={{
-            selectOnLineNumbers: true,
-            minimap: { enabled: false },
-            automaticLayout: true,
-          }}
-        />
         <div className="mt-4">
           <label className="block text-white">Select Language:</label>
           <select
@@ -70,8 +58,20 @@ const CodeEditorPage = () => {
             {/* Add more languages as needed */}
           </select>
         </div>
-      </div>
+        <MonacoEditor
+          height="calc(100vh - 200px)" // Adjust the height based on the problem statement section
+          language={language}
+          value={code}
+          onChange={handleEditorChange}
+          theme="vs-dark" // You can change this to different themes like 'light' or 'vs'
+          options={{
+            selectOnLineNumbers: true,
+            minimap: { enabled: false },
+            automaticLayout: true,
+          }}
+        />
 
+      </div>
       {/* Right Side: Test Cases and Submit Button */}
       <div className="w-1/2 p-4 bg-gray-100">
         <h2 className="text-2xl font-bold text-gray-800 mb-4">Test Cases</h2>

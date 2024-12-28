@@ -1,7 +1,8 @@
 // pages/code-editor.js
 "use client";
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
+import axios from 'axios';
 
 // Dynamically import MonacoEditor to avoid SSR issues
 const MonacoEditor = dynamic(() => import('@monaco-editor/react'), { ssr: false });
@@ -11,6 +12,7 @@ const CodeEditorPage = () => {
   const [input, setInput] = useState('');
   const [output, setOutput] = useState('');
   const [language, setLanguage] = useState('javascript');
+  const [languages, setLanguages] = useState([]);
 
   const handleEditorChange = (newValue: string) => {
     setCode(newValue);
@@ -20,6 +22,29 @@ const CodeEditorPage = () => {
     // Placeholder for handling the test case submission
     setOutput(`Output for input: ${input}`);
   };
+
+  const getCodingLanguages = async () => {
+
+    const options = {
+      method: 'GET',
+      url: 'https://judge0-ce.p.rapidapi.com/languages',
+      headers: {
+        'x-rapidapi-key': process.env.NEXT_PUBLIC_RAPID_API_KEY,
+        'x-rapidapi-host': 'judge0-ce.p.rapidapi.com'
+      }
+    };
+    
+    try {
+        const response = await axios.request(options);
+        setLanguages(response?.data);
+    } catch (error) {
+        console.error(error);
+    }
+  }
+
+  useEffect(() => {
+      getCodingLanguages();
+  }, []);
 
   return (
     <div className="flex h-screen">
@@ -48,14 +73,12 @@ const CodeEditorPage = () => {
             value={language}
             onChange={(e) => setLanguage(e.target.value)}
           >
-            <option value="javascript">JavaScript</option>
-            <option value="python">Python</option>
-            <option value="java">Java</option>
-            <option value="csharp">C#</option>
-            <option value="go">Go</option>
-            <option value="html">HTML</option>
-            <option value="css">CSS</option>
-            {/* Add more languages as needed */}
+            {languages.map((item: any) => {
+                return (
+                    <option key={item.id} value={`${item.name}`}>{item.name}</option>
+                )
+            })}
+
           </select>
         </div>
         <MonacoEditor

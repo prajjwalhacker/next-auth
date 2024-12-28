@@ -16,7 +16,7 @@ const page = () => {
         fields: '*'
       },
       headers: {
-        'x-rapidapi-key': 'fb53e31502msh9c852389f454154p11ed18jsn25116568bd8e',
+        'x-rapidapi-key': process.env.NEXT_PUBLIC_RAPID_API_KEY,
         'x-rapidapi-host': 'judge0-ce.p.rapidapi.com',
         'Content-Type': 'application/json'
       },

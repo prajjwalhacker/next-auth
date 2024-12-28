@@ -22,6 +22,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/_components/InterviewPanel.jsx", "src/app/_components/Hero.jsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/_components/InterviewPanel.jsx", "src/app/_components/Hero.jsx", "src/utils/notify.js", "src/utils/motion.js", "src/app/signup/page.jsx", "src/app/dashboard/[id]/page.jsx"],
   "exclude": ["node_modules"]
 }
